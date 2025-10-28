@@ -11,6 +11,9 @@ from langchain_community.document_loaders.parsers.language.cobol import CobolSeg
 from langchain_community.document_loaders.parsers.language.cpp import CPPSegmenter
 from langchain_community.document_loaders.parsers.language.csharp import CSharpSegmenter
 from langchain_community.document_loaders.parsers.language.elixir import ElixirSegmenter
+from langchain_community.document_loaders.parsers.language.fortran import (
+    FortranSegmenter,
+)
 from langchain_community.document_loaders.parsers.language.go import GoSegmenter
 from langchain_community.document_loaders.parsers.language.java import JavaSegmenter
 from langchain_community.document_loaders.parsers.language.javascript import (
@@ -49,6 +52,12 @@ LANGUAGE_EXTENSIONS: Dict[str, str] = {
     "ex": "elixir",
     "exs": "elixir",
     "sql": "sql",
+    "f": "fortran",
+    "f90": "fortran",
+    "f95": "fortran",
+    "f03": "fortran",
+    "f08": "fortran",
+    "for": "fortran",
 }
 
 LANGUAGE_SEGMENTERS: Dict[str, Any] = {
@@ -70,6 +79,7 @@ LANGUAGE_SEGMENTERS: Dict[str, Any] = {
     "php": PHPSegmenter,
     "elixir": ElixirSegmenter,
     "sql": SQLSegmenter,
+    "fortran": FortranSegmenter,
 }
 
 Language = Literal[
@@ -97,6 +107,7 @@ Language = Literal[
     "perl",
     "elixir",
     "sql",
+    "fortran",
 ]
 
 
@@ -116,6 +127,7 @@ class LanguageParser(BaseBlobParser):
     - C#: "csharp" (*)
     - COBOL: "cobol"
     - Elixir: "elixir"
+    - Fortran: "fortran" (*)
     - Go: "go" (*)
     - Java: "java" (*)
     - JavaScript: "js" (requires package `esprima`)
