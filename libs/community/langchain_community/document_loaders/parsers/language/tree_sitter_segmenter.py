@@ -21,29 +21,36 @@ class TreeSitterSegmenter(CodeSegmenter):
             import tree_sitter_language_pack  # noqa: F401
         except ImportError:
             raise ImportError(
-                "Could not import tree_sitter/tree_sitter_language_pack Python packages. "
-                "Please install them with "
+                "Could not import tree_sitter/tree_sitter_language_pack Python "
+                "packages. Please install them with "
                 "`pip install tree-sitter tree-sitter-language-pack`."
             )
 
     def is_valid(self) -> bool:
+        from tree_sitter import Query, QueryCursor
+
         language = self.get_language()
-        error_query = language.query("(ERROR) @error")
+        error_query = Query(language, "(ERROR) @error")
+        query_cursor = QueryCursor(error_query)
 
         parser = self.get_parser()
         tree = parser.parse(bytes(self.code, encoding="UTF-8"))
 
-        return len(error_query.captures(tree.root_node)) == 0
+        captures = query_cursor.captures(tree.root_node)
+        return len(captures) == 0
 
     def extract_functions_classes(self) -> List[str]:
+        from tree_sitter import Query, QueryCursor
+
         language = self.get_language()
-        query = language.query(self.get_chunk_query())
+        query = Query(language, self.get_chunk_query())
+        query_cursor = QueryCursor(query)
 
         parser = self.get_parser()
         tree = parser.parse(bytes(self.code, encoding="UTF-8"))
-        query_captures: Dict[str, List[Node]] = query.captures(tree.root_node)
+        query_captures: dict[str, list[Node]] = query_cursor.captures(tree.root_node)
 
-        processed_lines = set()
+        processed_lines: set[int] = set()
         chunks: List[str] = []
 
         for capture_name, nodes in query_captures.items():
@@ -62,15 +69,18 @@ class TreeSitterSegmenter(CodeSegmenter):
         return chunks
 
     def simplify_code(self) -> str:
+        from tree_sitter import Query, QueryCursor
+
         language = self.get_language()
-        query = language.query(self.get_chunk_query())
+        query = Query(language, self.get_chunk_query())
+        query_cursor = QueryCursor(query)
 
         parser = self.get_parser()
         tree = parser.parse(bytes(self.code, encoding="UTF-8"))
         processed_lines = set()
 
         simplified_lines = self.source_lines[:]
-        captures: dict[str, list] = query.captures(tree.root_node)
+        captures: dict[str, list[Node]] = query_cursor.captures(tree.root_node)
         for capture_name, nodes in captures.items():
             for node in nodes:
                 start_line = node.start_point[0]

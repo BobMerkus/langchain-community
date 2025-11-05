@@ -77,6 +77,10 @@ typing = [
     "langchain-text-splitters>=1.0.0,<2.0.0",
     "langchain",
 ]
+language_parsers = [
+    "tree-sitter>=0.23.0,<1.0.0",
+    "tree-sitter-language-pack>=0.10.0,<1.0.0",
+]
 
 [tool.ruff]
 exclude = [
