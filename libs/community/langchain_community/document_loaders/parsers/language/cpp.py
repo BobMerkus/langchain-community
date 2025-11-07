@@ -9,15 +9,16 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (class_specifier
-            body: (field_declaration_list)) @class
-        (struct_specifier
-            body: (field_declaration_list)) @struct
-        (union_specifier
-            body: (field_declaration_list)) @union 
-        (function_definition) @function
-    ]
+    (translation_unit
+        [
+            (class_specifier
+                body: (field_declaration_list)) @class
+            (struct_specifier
+                body: (field_declaration_list)) @struct
+            (union_specifier
+                body: (field_declaration_list)) @union
+            (function_definition) @function
+        ])
 """.strip()
 
 

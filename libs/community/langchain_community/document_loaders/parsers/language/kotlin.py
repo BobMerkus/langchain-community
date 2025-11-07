@@ -9,10 +9,11 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (function_declaration) @function
-        (class_declaration) @class
-    ]
+    (source_file
+        [
+            (function_declaration) @function
+            (class_declaration) @class
+        ])
 """.strip()
 
 

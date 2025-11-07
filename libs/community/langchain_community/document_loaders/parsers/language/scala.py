@@ -9,12 +9,13 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (class_definition) @class
-        (function_definition) @function
-        (object_definition) @object
-        (trait_definition) @trait
-    ]
+    (compilation_unit
+        [
+            (class_definition) @class
+            (function_definition) @function
+            (object_definition) @object
+            (trait_definition) @trait
+        ])
 """.strip()
 
 

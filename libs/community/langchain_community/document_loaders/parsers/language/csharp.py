@@ -9,15 +9,15 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (namespace_declaration) @namespace
-        (class_declaration) @class
-        (method_declaration) @method
-        (interface_declaration) @interface
-        (enum_declaration) @enum
-        (struct_declaration) @struct
-        (record_declaration) @record
-    ]
+    (compilation_unit
+        [
+            (namespace_declaration) @namespace
+            (class_declaration) @class
+            (interface_declaration) @interface
+            (enum_declaration) @enum
+            (struct_declaration) @struct
+            (record_declaration) @record
+        ])
 """.strip()
 
 

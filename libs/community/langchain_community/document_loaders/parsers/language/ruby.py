@@ -9,11 +9,12 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (method) @method
-        (module) @module
-        (class) @class
-    ]
+    (program
+        [
+            (method) @method
+            (module) @module
+            (class) @class
+        ])
 """.strip()
 
 
