@@ -78,8 +78,9 @@ typing = [
     "langchain",
 ]
 language_parsers = [
-    "tree-sitter>=0.23.0,<1.0.0",
-    "tree-sitter-language-pack>=0.10.0,<1.0.0",
+    "tree-sitter==0.25.2",
+    "tree-sitter-language-pack==0.10.0",
+    "esprima==4.0.1"
 ]
 
 [tool.ruff]
@@ -92,10 +93,9 @@ exclude = [
 select = ["E", "F", "I", "PGH003", "T201"]
 
 [tool.mypy]
-#plugins = ["pydantic.mypy"]
-ignore_missing_imports = "True"
-disallow_untyped_defs = "True"
-warn_unused_ignores = "True"
+ignore_missing_imports = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
 
 [tool.coverage.run]
 omit = ["tests/*"]
