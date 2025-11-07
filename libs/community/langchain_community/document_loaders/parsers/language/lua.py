@@ -9,12 +9,8 @@ if TYPE_CHECKING:
 
 
 CHUNK_QUERY = """
-    [
-        (function_definition_statement
-            name: (identifier)) @function
-        (local_function_definition_statement
-            name: (identifier)) @function
-    ]
+    (chunk
+        (function_declaration) @function)
 """.strip()
 
 
